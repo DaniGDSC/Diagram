@@ -1,20 +1,47 @@
-@startuml card register
-!define RECTANGLE class
-
-actor "Người đọc" as Reader
-
-usecase "Nhập thông tin cá nhân" as UC1
-usecase "Tạo mã số thẻ" as UC2
-usecase "Xác nhận đăng ký thành công" as UC3
-
-rectangle "System" {
-    UC1
-    UC2
-    UC3
+@startuml
+left to right direction
+skinparam usecase {
+  BackgroundColor white
+  BorderColor black
 }
 
-Reader --> UC1 : "Nhập thông tin cá nhân"
-UC1 --> UC2 : "Cung cấp thông tin để tạo mã số thẻ"
-UC2 --> UC3 : "Tạo mã số thẻ và xác nhận đăng ký"
+actor "Reader" as reader
+
+rectangle "Library System" {
+  usecase "Tạo thẻ thư viện" as UC1
+  
+  ' Sub use cases cho Tạo thẻ thư viện
+  usecase "Nhập thông tin cá nhân" as UC1_1
+  usecase "Validate thông tin" as UC1_2
+  usecase "Tạo mã số thẻ" as UC1_3
+  usecase "Hiển thị lỗi validation" as UC1_4
+}
+
+' Basic associations with main use cases
+reader --> UC1
+
+' Include relationships cho Card Register
+UC1 ..> UC1_1 : <<include>>
+UC1 ..> UC1_2 : <<include>>
+UC1 ..> UC1_3 : <<include>>
+
+' Extend relationship cho Card Register
+UC1_2 <.. UC1_4 : <<extend>>
+
+note "Extension points:\n- Validation failed" as N1
+UC1_2 .. N1
+
+note right of UC1_1
+  Required fields:
+  - CCCD (Citizen ID)
+  - Phone number
+  - Email
+  - Password
+end note
+
+note right of UC1_3
+  System generates
+  unique card number
+end note
 
 @enduml
