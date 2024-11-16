@@ -1,0 +1,20 @@
+@startuml card register
+!define RECTANGLE class
+
+actor "Người đọc" as Reader
+
+usecase "Nhập thông tin cá nhân" as UC1
+usecase "Tạo mã số thẻ" as UC2
+usecase "Xác nhận đăng ký thành công" as UC3
+
+rectangle "System" {
+    UC1
+    UC2
+    UC3
+}
+
+Reader --> UC1 : "Nhập thông tin cá nhân"
+UC1 --> UC2 : "Cung cấp thông tin để tạo mã số thẻ"
+UC2 --> UC3 : "Tạo mã số thẻ và xác nhận đăng ký"
+
+@enduml

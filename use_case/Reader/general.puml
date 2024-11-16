@@ -1,0 +1,27 @@
+@startuml
+actor Reader
+
+boundary SystemBoundary {
+  usecase "Tạo thẻ thư viện" as UC1
+  usecase "Đăng nhập" as UC2
+  usecase "Tìm kiếm sách" as UC3
+  usecase "Xem thông tin sách chi tiết" as UC4
+  usecase "Mượn sách" as UC5
+  usecase "Trả sách" as UC6
+  usecase "Xem lịch sử mượn sách" as UC7
+  usecase "Đăng xuất" as UC8
+}
+
+Reader --> UC1 : "Đăng ký thẻ thư viện"
+Reader --> UC2 : "Đăng nhập"
+Reader --> UC3 : "Tìm kiếm sách"
+Reader --> UC4 : "Xem thông tin sách chi tiết"
+Reader --> UC5 : "Mượn sách"
+Reader --> UC6 : "Trả sách"
+Reader --> UC7 : "Xem lịch sử mượn sách"
+Reader --> UC8 : "Đăng xuất"
+
+UC5 .down.> UC3 : "Tìm kiếm sách"
+UC6 .down.> UC5 : "Mượn sách"
+
+@enduml
