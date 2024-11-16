@@ -1,0 +1,49 @@
+@startuml
+left to right direction
+skinparam usecase {
+  BackgroundColor white
+  BorderColor black
+}
+
+actor "Reader" as reader
+
+rectangle "Library System" {
+  usecase "Đăng nhập" as UC2
+   
+  ' Sub use cases cho Sign In
+  usecase "Nhập thông tin đăng nhập" as UC2_1
+  usecase "Xác thực thông tin" as UC2_2
+  usecase "Hiển thị giao diện chính" as UC2_3
+  usecase "Hiển thị thông báo lỗi" as UC2_4
+}
+
+' Basic associations with main use cases
+reader --> UC2
+
+
+' Include relationships cho Sign In
+UC2 ..> UC2_1 : <<include>>
+UC2 ..> UC2_2 : <<include>>
+
+' Extend relationships cho Sign In
+UC2_2 <.. UC2_3 : <<extend>>
+UC2_2 <.. UC2_4 : <<extend>>
+
+note "Extension points:\n- Authentication succeeded" as N1
+note "Extension points:\n- Authentication failed" as N2
+UC2_2 .. N1
+UC2_2 .. N2
+
+note right of UC2_1
+  Required fields:
+  - Mã số thẻ
+  - Mật khẩu
+end note
+
+note right of UC2_2
+  Validate:
+  - Mã số thẻ tồn tại
+  - Mật khẩu chính xác
+end note
+
+@enduml
