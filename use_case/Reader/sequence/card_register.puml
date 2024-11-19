@@ -1,0 +1,15 @@
+@startuml
+actor "Reader" as reader
+participant "Library System" as system
+participant "Database" as db
+
+system -> reader : "Display Card-register form"
+reader -> system : "Input personal information (ID, Full-name, Phone number, Password)"
+system -> db : "Validate info"
+db --> system : "Info is valid or invalid"
+system -> reader : "Display Validation error" if info invalid
+
+system -> db : "Create random ID_number_card"
+db --> system : "ID_number_card + Password"
+system -> reader : "Display ID_number_card + Password"
+@enduml
