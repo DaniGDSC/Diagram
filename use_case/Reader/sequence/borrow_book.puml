@@ -1,0 +1,26 @@
+@startuml
+actor "Reader" as reader
+participant "Library System" as system
+participant "Book Database" as db
+
+== Kiểm tra sách có sẵn ==
+reader -> system : "Chọn sách để mượn"
+system -> db : "Kiểm tra sách có sẵn"
+db -> system : "Trả về số lượng sách"
+
+alt Sách có sẵn
+  system -> reader : "Hiển thị form mượn sách"
+  reader -> system : "Điền thông tin ngày trả sách"
+  system -> reader : "Xác nhận mượn sách"
+  system -> db : "Cập nhật trạng thái sách"
+  db -> system : "Trả về kết quả cập nhật"
+  system -> reader : "Thông báo mượn sách thành công"
+else Sách không có sẵn
+  system -> reader : "Hiển thị thông báo chờ sách"
+  reader -> system : "Chọn vào danh sách chờ"
+  system -> db : "Cập nhật vào danh sách chờ"
+  db -> system : "Xác nhận vào danh sách chờ"
+  system -> reader : "Thông báo thêm vào danh sách chờ"
+end
+
+@enduml
