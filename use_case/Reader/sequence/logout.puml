@@ -1,0 +1,10 @@
+@startuml
+actor "Reader" as reader
+participant "Library System" as system
+
+== Đăng xuất ==
+reader -> system : Nhấn nút "Log out"
+system -> system : Kết thúc phiên làm việc
+system -> reader : Hiển thị thông báo "Đã đăng xuất thành công"
+
+@enduml
