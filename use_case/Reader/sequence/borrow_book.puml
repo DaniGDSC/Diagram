@@ -1,6 +1,6 @@
 @startuml
 actor "Reader" as reader
-entity "Library System" as system
+participant "Library System" as system
 database "Book Database" as db
 
 alt Book Quantity is valid
@@ -23,7 +23,7 @@ alt Wait
     system -> db : Lưu thông tin mượn sách
     db --> system : Xác nhận mượn sách thành công
     system -> reader : Hiển thị thông báo "Bạn đến lấy sách đúng hẹn nhé"
-else Người đọc không đồng ý chờ
+else Not Wait
     system -> reader : Kết thúc quá trình
 end
 end

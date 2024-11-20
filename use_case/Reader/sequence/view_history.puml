@@ -1,0 +1,17 @@
+@startuml
+actor "Reader" as reader
+participant "Library System" as system
+database "Book Database" as db
+
+== Chọn 'History' từ màn hình chính ==
+reader -> system : Chọn 'History' button
+
+== Lấy thông tin lịch sử mượn sách ==
+system -> db : Truy vấn lịch sử mượn sách (đã mượn/ waitlist, đúng hạn/trễ hạn)
+db --> system : Trả về danh sách các sách mượn và sách trả
+
+== Hiển thị lịch sử mượn sách ==
+system -> reader : Hiển thị danh sách sách mượn (đã mượn, waitlist)
+system -> reader : Hiển thị danh sách sách trả (đúng hạn, trễ hạn)
+
+@enduml

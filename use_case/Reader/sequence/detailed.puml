@@ -1,6 +1,6 @@
 @startuml
 actor "Reader" as reader
-entity "Library System" as system
+participant "Library System" as system
 database "Book Database" as db
 
 reader -> system : Chọn sách từ danh sách tìm kiếm
