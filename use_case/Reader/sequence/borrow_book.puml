@@ -1,26 +1,31 @@
 @startuml
 actor "Reader" as reader
-participant "Library System" as system
-participant "Book Database" as db
+entity "Library System" as system
+database "Book Database" as db
 
-== Kiểm tra sách có sẵn ==
-reader -> system : "Chọn sách để mượn"
-system -> db : "Kiểm tra sách có sẵn"
-db -> system : "Trả về số lượng sách"
+alt Book Quantity is valid
+system -> reader : Display 'Borrow' button
+reader -> system : Choose 'Borrow' button
+system -> reader : Display Book-borrow form (Tên sách, Mã sách, Tên tác giả, NXB, Ngày mượn mặc định)
+reader -> system : Điền thông tin ngày trả sách và xác nhận
+system -> db : Lưu thông tin mượn sách
+db --> system : Xác nhận mượn sách thành công
+system -> reader : Hiển thị thông báo "Mượn sách thành công"
 
-alt Sách có sẵn
-  system -> reader : "Hiển thị form mượn sách"
-  reader -> system : "Điền thông tin ngày trả sách"
-  system -> reader : "Xác nhận mượn sách"
-  system -> db : "Cập nhật trạng thái sách"
-  db -> system : "Trả về kết quả cập nhật"
-  system -> reader : "Thông báo mượn sách thành công"
-else Sách không có sẵn
-  system -> reader : "Hiển thị thông báo chờ sách"
-  reader -> system : "Chọn vào danh sách chờ"
-  system -> db : "Cập nhật vào danh sách chờ"
-  db -> system : "Xác nhận vào danh sách chờ"
-  system -> reader : "Thông báo thêm vào danh sách chờ"
+else Book Quantity is invalid
+system -> reader : Display 'Waitlist' button
+reader -> system : Choose 'Waitlist' button
+system -> reader : Cung cấp lịch dự kiến sách sẽ có sẵn
+reader -> system : Choose 'Wait' or 'Not'
+alt Wait
+    system -> reader : Display waitlist form (Tên sách, Mã sách, Tên tác giả, NXB, Ngày mượn mặc định)
+    reader -> system : Điền thông tin ngày trả sách và xác nhận
+    system -> db : Lưu thông tin mượn sách
+    db --> system : Xác nhận mượn sách thành công
+    system -> reader : Hiển thị thông báo "Bạn đến lấy sách đúng hẹn nhé"
+else Người đọc không đồng ý chờ
+    system -> reader : Kết thúc quá trình
+end
 end
 
 @enduml

@@ -1,0 +1,17 @@
+@startuml
+actor "Reader" as reader
+entity "Library System" as system
+database "Database" as db
+
+reader -> system : Nhập mã số thẻ và mật khẩu
+system -> db : Kiểm tra thông tin đăng nhập (MST, mật khẩu)
+db --> system : Trả kết quả (thông tin hợp lệ / không hợp lệ)
+system -> reader : Thông báo kết quả đăng nhập
+
+alt Đăng nhập thành công
+    system -> reader : Hiển thị giao diện chính
+else Đăng nhập thất bại
+    system -> reader : Thông báo lỗi (sai MST hoặc mật khẩu)
+end
+
+@enduml

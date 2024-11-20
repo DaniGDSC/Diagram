@@ -1,0 +1,17 @@
+@startuml
+actor "Reader" as reader
+entity "Library System" as system
+database "Book Database" as db
+
+reader -> system : Nhập từ khóa tìm kiếm (tên sách hoặc tác giả)
+system -> db : Tìm kiếm sách trong cơ sở dữ liệu
+db --> system : Trả về danh sách sách phù hợp
+system -> reader : Hiển thị kết quả tìm kiếm
+
+alt Có sách phù hợp
+    system -> reader : Hiển thị tên sách, tác giả, ảnh bìa, số lượng sách
+else Không có sách phù hợp
+    system -> reader : Thông báo không tìm thấy sách
+end
+
+@enduml
