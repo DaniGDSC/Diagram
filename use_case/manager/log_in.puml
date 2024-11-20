@@ -1,0 +1,17 @@
+@startuml
+actor "Library Manager" as manager
+entity "Library System" as system
+database "User Database" as db
+
+== Đăng nhập ==
+manager -> system : Nhập tài khoản và mật khẩu
+system -> db : Kiểm tra thông tin đăng nhập (tài khoản, mật khẩu)
+db --> system : Trả về kết quả (thành công / thất bại)
+
+alt Đăng nhập thành công
+    system -> manager : Hiển thị giao diện chính
+else Đăng nhập thất bại
+    system -> manager : Thông báo lỗi đăng nhập
+end
+
+@enduml

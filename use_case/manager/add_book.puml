@@ -1,0 +1,30 @@
+@startuml
+actor "Library Manager" as manager
+participant "Library System" as system
+database "Book Database" as db
+
+== Thêm sách mới ==
+
+manager -> system : Chọn 'Thêm sách mới'
+system -> manager : Hiển thị form thêm sách (thủ công hoặc CSV)
+
+alt Chọn nhập thủ công
+    manager -> system : Nhập thông tin sách thủ công
+    system -> db : Thêm sách vào cơ sở dữ liệu
+    db --> system : Xác nhận thêm sách thành công
+    system -> manager : Thông báo "Sách đã được thêm thành công"
+end
+
+alt Chọn tải lên file CSV
+    manager -> system : Tải lên file CSV
+    system -> system : Kiểm tra tính hợp lệ file CSV
+    alt File hợp lệ
+        system -> db : Thêm tất cả sách từ file CSV vào cơ sở dữ liệu
+        db --> system : Xác nhận thêm sách thành công
+        system -> manager : Thông báo "Sách đã được thêm thành công"
+    else File không hợp lệ
+        system -> manager : Thông báo lỗi (sai định dạng hoặc thiếu thông tin)
+    end
+end
+
+@enduml
