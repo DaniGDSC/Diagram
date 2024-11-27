@@ -1,0 +1,19 @@
+@startuml
+actor "Library Manager" as manager
+entity "Library System" as system
+database "Book Database" as db
+
+manager -> system : Tìm kiếm sách muốn xóa
+system -> db : Tìm kiếm sách trong cơ sở dữ liệu
+db --> system : Trả về thông tin sách
+system -> manager : Hiển thị thông tin sách cần xóa
+
+manager -> system : Chọn 'Xóa sách'
+system -> manager : Xác nhận xóa sách (Hiển thị cảnh báo)
+manager -> system : Xác nhận xóa sách
+
+system -> db : Xóa sách khỏi cơ sở dữ liệu
+db --> system : Xác nhận xóa sách thành công
+system -> manager : Thông báo "Sách đã được xóa thành công"
+
+@enduml

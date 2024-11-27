@@ -1,0 +1,24 @@
+@startuml
+actor "Library Manager" as manager
+entity "Library System" as system
+database "Book Database" as db
+
+manager -> system : Chọn 'Quản lý danh sách chờ'
+system -> db : Lấy danh sách chờ và trạng thái sách
+db --> system : Trả về danh sách chờ (sách không có sẵn)
+system -> manager : Hiển thị danh sách chờ và trạng thái sách
+
+alt Có sách trả lại
+    system -> db : Cập nhật trạng thái sách (Non-Available -> Available)
+    db --> system : Xác nhận cập nhật trạng thái sách
+    system -> manager : Hiển thị sách có sẵn để mượn
+    manager -> system : Duyệt danh sách chờ
+    system -> manager : Chọn người đọc tiếp theo trong danh sách chờ
+    system -> db : Cập nhật danh sách chờ và thông báo cho người đọc
+    db --> system : Xác nhận thông báo
+    system -> manager : Thông báo "Sách có sẵn, mời đến lấy sách"
+else Không có sách trả lại
+    system -> manager : Thông báo "Không có sách trả lại"
+end
+
+@enduml

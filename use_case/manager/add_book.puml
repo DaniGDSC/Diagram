@@ -3,8 +3,6 @@ actor "Library Manager" as manager
 participant "Library System" as system
 database "Book Database" as db
 
-== Thêm sách mới ==
-
 manager -> system : Chọn 'Thêm sách mới'
 system -> manager : Hiển thị form thêm sách (thủ công hoặc CSV)
 

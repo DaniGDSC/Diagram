@@ -3,7 +3,6 @@ actor "Library Manager" as manager
 entity "Library System" as system
 database "User Database" as db
 
-== Đăng nhập ==
 manager -> system : Nhập tài khoản và mật khẩu
 system -> db : Kiểm tra thông tin đăng nhập (tài khoản, mật khẩu)
 db --> system : Trả về kết quả (thành công / thất bại)

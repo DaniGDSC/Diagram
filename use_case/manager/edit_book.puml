@@ -1,0 +1,27 @@
+@startuml
+actor "Library Manager" as manager
+entity "Library System" as system
+database "Book Database" as db
+
+manager -> system : Nhập thông tin sách cần tìm
+system -> db : Tìm kiếm sách trong cơ sở dữ liệu
+db --> system : Trả về danh sách sách tìm được
+system -> manager : Hiển thị danh sách sách tìm được
+
+alt Chọn sách cần cập nhật
+    manager -> system : Chọn sách cần cập nhật
+    system -> db : Lấy thông tin chi tiết sách
+    db --> system : Trả về thông tin chi tiết sách
+    system -> manager : Hiển thị thông tin sách chi tiết
+    manager -> system : Chọn 'Cập nhật sách' button
+    system -> manager : Turn on 'Edit' mode
+    manager -> system : Chỉnh sửa thông tin sách
+    manager -> system : Choose 'Save' button
+    system -> db : Cập nhật thông tin sách vào cơ sở dữ liệu
+    db --> system : Xác nhận cập nhật thành công
+    system -> manager : Thông báo "Cập nhật thông tin sách thành công"
+else Không tìm thấy sách
+    system -> manager : Thông báo "Không tìm thấy sách"
+end
+
+@enduml
