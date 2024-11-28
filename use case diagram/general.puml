@@ -1,38 +1,36 @@
 @startuml
 left to right direction
-skinparam usecase {
-  BackgroundColor white
-  BorderColor black
+actor User
+actor Manager
+
+rectangle "Hệ thống Mượn trả sách tự động" {
+    (Tạo thẻ thư viện) as UC1
+    (Đăng nhập) as UC2
+    (Tìm kiếm sách) as UC3
+    (Xem thông tin sách chi tiết) as UC4
+    (Mượn sách) as UC5
+    (Trả sách) as UC6
+    (Xem lịch sử mượn sách) as UC7
+    (Đăng xuất) as UC8
+    (Quản lý danh sách mượn/chờ) as UC9
+    (Thêm sách mới) as UC10
+    (Cập nhật thông tin sách) as UC11
+    (Xóa sách) as UC12
 }
 
-actor "Reader" as reader
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+User --> UC7
+User --> UC8
 
-rectangle "Library System" {
-  usecase "Tạo thẻ thư viện" as UC1
-  usecase "Đăng nhập" as UC2
-  usecase "Tìm kiếm sách" as UC3
-  usecase "Xem thông tin sách chi tiết" as UC4
-  usecase "Mượn sách" as UC5
-  usecase "Trả sách" as UC6
-  usecase "Xem lịch sử mượn sách" as UC7
-  usecase "Đăng xuất" as UC8
-}
-
-' Basic associations
-reader --> UC1
-reader --> UC2
-reader --> UC3
-reader --> UC4
-reader --> UC5
-reader --> UC6
-reader --> UC7
-reader --> UC8
-
-' Include relationships
-UC5 ..> UC3 : <<include>>
-UC4 ..> UC3 : <<include>>
-UC5 ..> UC4 : <<include>>
-UC6 ..> UC5 : <<include>>
-
-
+Manager --> UC2
+Manager --> UC8
+Manager --> UC9
+Manager --> UC10
+Manager --> UC11
+Manager --> UC12
 @enduml
