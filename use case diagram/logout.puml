@@ -1,0 +1,19 @@
+@startuml
+left to right direction
+actor User
+actor Manager
+
+rectangle "Hệ thống Mượn trả sách tự động" {
+    (Đăng xuất) as UC1
+    (Kết thúc phiên làm việc) as UC2
+    (Hiển thị thông báo xác nhận) as UC3
+    (Xử lý lỗi đăng xuất) as UC4
+}
+
+User --> UC1
+Manager --> UC1
+
+UC1 .> UC2 : <<include>> 
+UC1 .> UC3 : <<include>>  
+UC1 .> UC4 : <<extend>>   
+@enduml
