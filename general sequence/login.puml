@@ -1,0 +1,31 @@
+@startuml
+actor User
+actor Manager
+participant "Giao diện Đăng nhập" as LoginUI
+participant "Hệ thống Xác thực" as AuthSystem
+database "Cơ sở dữ liệu Người dùng" as UserDB
+
+User -> LoginUI: Mở trang đăng nhập
+Manager -> LoginUI: Mở trang đăng nhập
+LoginUI -> User: Hiển thị form đăng nhập
+LoginUI -> Manager: Hiển thị form đăng nhập
+
+alt Người dùng hoặc Quản lý nhập thông tin đăng nhập
+    User -> LoginUI: Nhập MST và mật khẩu
+    Manager -> LoginUI: Nhập MST và mật khẩu
+end
+
+LoginUI -> AuthSystem: Gửi thông tin đăng nhập
+AuthSystem -> UserDB: Kiểm tra thông tin đăng nhập
+UserDB --> AuthSystem: Trả kết quả xác thực
+
+alt Thông tin đăng nhập hợp lệ
+    AuthSystem -> LoginUI: Xác thực thành công
+    LoginUI -> User: Hiển thị giao diện chính
+    LoginUI -> Manager: Hiển thị giao diện quản lý
+else Thông tin đăng nhập không hợp lệ
+    AuthSystem -> LoginUI: Xác thực thất bại
+    LoginUI -> User: Hiển thị thông báo lỗi
+    LoginUI -> Manager: Hiển thị thông báo lỗi
+end
+@enduml
