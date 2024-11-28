@@ -6,7 +6,7 @@ database "Book Database" as db
 alt Book Quantity is valid
 system -> reader : Display 'Borrow' button
 reader -> system : Choose 'Borrow' button
-system -> reader : Display Book-borrow form (Tên sách, Mã sách, Tên tác giả, NXB, Ngày mượn mặc định)
+system -> reader : Display Loan-book form (Tên sách, Mã sách, Tên tác giả, NXB, Ngày mượn mặc định)
 reader -> system : Điền thông tin ngày trả sách và xác nhận
 system -> db : Lưu thông tin mượn sách
 db --> system : Xác nhận mượn sách thành công
